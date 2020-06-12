@@ -19,14 +19,11 @@ github_repository = args[4]
 github_max_issue_number = int(args[5])
 github_search_txt = args[6]
 
-# issue_max_number = 39782
-
 with open("output_" + github_owner + github_repository + datetime.datetime.now().strftime('%Y%m%d_%H%M%S') + '.csv', mode='a') as out_file:
     out_file.write('"url","title","state","milestone","created_at","updated_at","labels"' + '\r\n')
-    for i in range(30000, github_max_issue_number):
+    for i in range(github_max_issue_number):
         api_url = 'https://api.github.com/repos/' + github_owner + '/' + github_repository + '/issues/' + str(i + 1)
         # deprecate(up to 2020/9/30) it should be oauh token
-        # res = requests.get(api_url,  auth=('imasaaki2', '1234567890github'))
         res = requests.get(api_url,  auth=(github_id, github_password))
         result = res.json()
         # print(api_url)
